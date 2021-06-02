@@ -119,7 +119,7 @@ legend(Legend);
 
 %% Graphical constraints of the Ge
 
-GGe        = (1.5/s)*(1/( (dist_mas_iner) * ( s + ( (bb/(dist_mas_iner)) + (( (Ud*Mi*Ei*Ei)/(dist_mas_iner) )*2*We) ) ) ));
+GGe        = (1/s)*(1/( (dist_mas_iner) * ( s + ( (bb/(dist_mas_iner)) + (( (Ud*Mi*Ei*Ei)/(dist_mas_iner) )*2*We) ) ) ));
 % figure(6)
 % step(GGe)
 
