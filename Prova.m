@@ -128,7 +128,7 @@ hold off;
 
 %% Rete Anticipatrice
 clc
-omega_c_star=omega_c_min+1.0;
+omega_c_star=omega_c_min+0.3;
 
 casual_n=( (bb/(dist_mas_iner)) + (( (Ud*Mi*Ei*Ei)/(dist_mas_iner) )*2*We) );
 GGe_omega_star = (1/(1i*omega_c_star) )*(1/( (dist_mas_iner) * ( (1i*omega_c_star) +  casual_n) ));
@@ -155,8 +155,12 @@ figure(127);
 bode(R_d);
 title("Rete Anticipatrice");
 %%
-gain=3.2;
+gain=2.5;
+disp("ciao");
+%gain=1;
 LL=GGe*R_d*gain;
+%LL=GGe_Ei_min*R_d*gain;
+%LL=GGe_Ei_max*R_d*gain;
 
 figure(129);
 title("risultato finale");
@@ -200,3 +204,16 @@ patch([Ta_1,T_simulation,T_simulation,Ta_1],[W*(1-0.01),W*(1-0.01),0,0], 'green'
 hold off
 Legend=["L(s) Step Response";"Overshoot Constraint"; "Settling time Cons"];
 legend(Legend);
+
+%% Simulink
+clc
+%open("ProgettoAO")
+open("Progetto3cSimulink")
+
+R=(R_d*gain)/s;
+[n_r,d_r]=tfdata(R);
+num_r=n_r{1};
+den_r=d_r{1};
+
+x0=[0;0];
+
