@@ -19,7 +19,7 @@ Ei_max=Ei+0.1;
 
 %%System dynamics
 A=[0, 1; 0, (bb/(Mi*Ei*Ei+Ie))-(( (Ud*Mi*Ei*Ei)/(Mi*Ei*Ei+Ie) )*2*We) ];
-B=[0, 1/(Mi*Ei*Ei+Ie)];
+B=[0; 1/(Mi*Ei*Ei+Ie)];
 C=[0, 1];
 D=0;
 %% Equivalent transfer function
@@ -215,5 +215,7 @@ R=(R_d*gain)/s;
 num_r=n_r{1};
 den_r=d_r{1};
 
-x0=[0;0];
+%x0=[0;0];
+teta_e=345; %random, 
+x0=[teta_e,We];
 
