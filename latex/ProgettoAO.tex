@@ -7,7 +7,7 @@
 
 \title{
     Controlli Automatici T \\
-    \large Progetto gruppo AO --- traccia 3c\\
+    \large Progetto gruppo AO --- Traccia 3C\\
 }
 \author{
     Giacomo Romanini\\
@@ -25,7 +25,7 @@
 
 \begin{figure}[h]
     \begin{center}
-        \includegraphics[scale=0.5]{elica.png}
+        \includegraphics[scale=0.5]{img/elica.png}
         %\caption{Rappresentazione grafica del sistema (elica)}
     \end{center}    
 \end{figure}
@@ -41,7 +41,7 @@ Il sistema del motore ad elica assegnato è descritto dalle seguenti equazioni:
         (m_i e_i^2 + I_e)\dot{\omega} &= -\beta \omega - \mu_d m_i \omega^2 e_i^2 + \tau
     \end{aligned}
 \end{equation}
-dove si considerano
+Si considerano
 \begin{align*}
     &x(t) =
     \begin{bmatrix}
@@ -55,7 +55,6 @@ dove si considerano
     &u(t) = \tau(t)\\
     &y(t) = \omega(t)
 \end{align*}
-\\
 Sostituendo i parametri è possibile ottenere le equazioni di stato:
 \begin{equation}
     \begin{aligned}
@@ -63,18 +62,78 @@ Sostituendo i parametri è possibile ottenere le equazioni di stato:
         \dot{x_2}(t) &= -\frac{\beta}{(m_i e_i^2 + I_e)} x_2(t) - \frac{\mu_d m_i e_i^2}{(m_i e_i^2 + I_e)} x_2^2(t) + \frac{1}{(m_i e_i^2 + I_e)}u(t)
     \end{aligned}
 \end{equation}
-\\
+\newline
 Inoltre, poiché la dinamica di $\theta$ è ininfluente per l'evoluzione del sistema, si conosce $x_e = 
 \begin{pmatrix}
     0\\
     10000/2\pi
 \end{pmatrix}$
-e $y_e = \omega_e = 10000/2\pi$
+e $y_e = \omega_e = 10000/2\pi$.
+$u_e$ può essere calcolato ponendo $f_2(x_e, u_e) = 0$:
+\begin{equation*}
+    -\beta x_{2e} - \mu_d m_i e_i^2 x_{2e}^2 + u_e = 0 \hspace{1em} \Longrightarrow \hspace{1em} u_e \approx 1110.7222
+\end{equation*}
+Si procede a questo punto calcolando le matrici del sistema linearizzato:
+\begin{equation*}
+    \delta \dot{x}(t) = A\delta x(t) + B\delta u(t)
+\end{equation*}
+\begin{equation*}
+    \begin{array}{c@{\qquad}c}
+    A = \frac{\partial f(x,u)}{\partial x} \bigg|_{\substack{x=x_e\\u=u_e}} =
+    \begin{bmatrix} 
+        0 & 1 \\ 
+        0 & - \frac{\beta}{m_ie_i^2 + I_e} - \frac{\mu_dm_ie_i^2}{m_ie_i^2 + I_e} 2\omega_e 
+    \end{bmatrix}
+    \hfill B = \frac{\partial f(x,u)}{\partial u} \bigg|_{\substack{x=x_e\\u=u_e}} = 
+    \begin{bmatrix} 
+        0 \\ 
+        \frac{1}{m_ie_i^2 + I_e}
+    \end{bmatrix}\\ \\
+    C = \frac{\partial h(x,u)}{\partial x} \bigg|_{\substack{x=x_e\\u=u_e}} =
+    \begin{bmatrix} 
+        0 & 1
+    \end{bmatrix}
+    \hfill D = \frac{\partial h(x,u)}{\partial u} \bigg|_{\substack{x=x_e\\u=u_e}} =
+    \begin{bmatrix} 
+        0
+    \end{bmatrix}
+    \end{array}
+\end{equation*}
 
+\newpage
 
+\section{Funzione di trasferimento}
 
+Per calcolare la funzione di trasferimento, si utilizza l'espressione
+\begin{equation*}
+    G(s) = C(sI + A)^{-1}B + D
+\end{equation*}
+dove
+\begin{equation*}
+    (sI - A)^{-1} = \frac{adj(sI - A)}{det(sI - A)} = 
+    \begin{bmatrix}
+        1/s & \frac{1}{s(s + 1.4139)} \\ 
+        0   & \frac{1}{s + 1.4139}
+    \end{bmatrix}
+\end{equation*}
+Ottenendo quindi la funzione di trasferimento:
+\begin{equation*}
+    G(s) =
+    \begin{bmatrix}0 & 1 \end{bmatrix}
+    \begin{bmatrix}
+        1/s & \frac{1}{s(s+1.4139)} \\
+        0 &\frac{1}{s+1.4139} \end{bmatrix}
+    \begin{bmatrix}0 \\ 1/0.775 \end{bmatrix}
+    + 0 =
+    \frac{1}{0.775(s + 1.4139)}
+\end{equation*}
+che presenta un polo in $s = -1.4139$
 
-
-
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.6]{img/bode_GG.jpg}
+        %\caption{Rappresentazione grafica del sistema (elica)}
+    \end{center}    
+\end{figure}
 
 \end{document}
