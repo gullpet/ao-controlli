@@ -1,8 +1,9 @@
-\documentclass[12pt,italian]{article}
+\documentclass[a4paper,12pt,italian]{article}
 \usepackage{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage[margin=1.5cm]{geometry}
 \usepackage{graphicx}
 
 \title{
@@ -30,17 +31,15 @@
     \end{center}    
 \end{figure}
 
-\newpage
+%\newpage
 
 \section{Linearizzazione nell'intorno di $(x_e, u_e)$}
 Il sistema del motore ad elica assegnato è descritto dalle seguenti equazioni: 
 
-\begin{equation}
-    \begin{aligned}
+\begin{align*}
         \dot{\theta} &= \omega\\
         (m_i e_i^2 + I_e)\dot{\omega} &= -\beta \omega - \mu_d m_i \omega^2 e_i^2 + \tau
-    \end{aligned}
-\end{equation}
+\end{align*}
 Si considerano
 \begin{align*}
     &x(t) =
@@ -56,13 +55,12 @@ Si considerano
     &y(t) = \omega(t)
 \end{align*}
 Sostituendo i parametri è possibile ottenere le equazioni di stato:
-\begin{equation}
+\begin{equation*}
     \begin{aligned}
         \dot{x_1}(t) &= x_2(t)\\
         \dot{x_2}(t) &= -\frac{\beta}{(m_i e_i^2 + I_e)} x_2(t) - \frac{\mu_d m_i e_i^2}{(m_i e_i^2 + I_e)} x_2^2(t) + \frac{1}{(m_i e_i^2 + I_e)}u(t)
     \end{aligned}
-\end{equation}
-\newline
+\end{equation*} \\
 Inoltre, poiché la dinamica di $\theta$ è ininfluente per l'evoluzione del sistema, si conosce $x_e = 
 \begin{pmatrix}
     0\\
@@ -100,7 +98,7 @@ Si procede a questo punto calcolando le matrici del sistema linearizzato:
     \end{array}
 \end{equation*}
 
-\newpage
+%\newpage
 
 \section{Funzione di trasferimento}
 
@@ -127,13 +125,40 @@ Ottenendo quindi la funzione di trasferimento:
     + 0 =
     \frac{1.2903}{s + 1.4139}
 \end{equation*}
-che presenta un polo in $s = -1.4139$
+Avendo un polo in $s = -1.4139$, è possibile constatare con certezza che il sistema sia BIBO stabile.\\ \\
+Di seguito il diagramma di Bode della funzione di trasferimento, ricavato tramite MATLAB.
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.6]{img/bode_GG.jpg}
+        \includegraphics[scale=0.55]{img/bode_GG.jpg}
         %\caption{Rappresentazione grafica del sistema (elica)}
     \end{center}    
 \end{figure}
+
+\newpage
+
+\section{Sintesi del regolatore}
+
+Per ottenere un errore a regime nullo con riferimento a gradino $w(t) = W1(t)$, $L(s)$ deve presentare un polo nell'origine.
+Avendo un unico polo reale negativo, introduciamo un regolatore statico con un polo nell'origine: $ R_s(s) = \frac{1}{s} $ ricavandone quindi $ G_e(s) $:
+
+\begin{equation*}
+    G_e(s) = R_s(s)G(s) = \frac{1}{s}\Big(\frac{1.2903}{s + 1.4139}\Big)
+\end{equation*}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{img/bode_GG_estesa.jpg}
+        %\caption{Rappresentazione grafica del sistema (elica)}
+    \end{center}    
+\end{figure}
+
+Come si può notare, il sistema esteso rispetta le specifiche iniziali sul margine di fase ($ M_f \geq 45^\circ$)
+
+
+
+
+
+
 
 \end{document}
