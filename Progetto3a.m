@@ -39,10 +39,10 @@ GG_Ei_max = 1/( (dist_mas_iner_max) * ( s + ( (bb/(dist_mas_iner_max)) + (( (Ud*
 figure(1)
 h_G2 = bodeplot(GG,{omega_range_min,omega_range_max});
 grid on, zoom on;
-hold on; title("G con Ie min e max")
+hold on; title("G con variazioni di e_i")
 h_G_min = bodeplot(GG_Ei_min,{omega_range_min,omega_range_max});
 h_G_max = bodeplot(GG_Ei_max,{omega_range_min,omega_range_max});
-Legend=["G(s) Ei=0.5";"G(s) Ei=0.4"; "G(s) Ei=0.6"];
+Legend=["G(s) e_i=0.5";"G(s) e_i=0.4"; "G(s) e_i=0.6"];
 legend(Legend);
 hold off;
 

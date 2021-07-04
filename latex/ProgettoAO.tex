@@ -76,13 +76,13 @@ Si procede a questo punto calcolando le matrici del sistema linearizzato:
     \delta \dot{x}(t) = A\delta x(t) + B\delta u(t)
 \end{equation*}
 \begin{equation*}
-    \begin{array}{c@{\qquad}c}
+    \begin{array}{ll}
     A = \frac{\partial f(x,u)}{\partial x} \bigg|_{\substack{x=x_e\\u=u_e}} =
     \begin{bmatrix} 
         0 & 1 \\ 
         0 & - \frac{\beta}{m_ie_i^2 + I_e} - \frac{\mu_dm_ie_i^2}{m_ie_i^2 + I_e} 2\omega_e 
     \end{bmatrix}
-    \hfill B = \frac{\partial f(x,u)}{\partial u} \bigg|_{\substack{x=x_e\\u=u_e}} = 
+    &B = \frac{\partial f(x,u)}{\partial u} \bigg|_{\substack{x=x_e\\u=u_e}} = 
     \begin{bmatrix} 
         0 \\ 
         \frac{1}{m_ie_i^2 + I_e}
@@ -91,7 +91,7 @@ Si procede a questo punto calcolando le matrici del sistema linearizzato:
     \begin{bmatrix} 
         0 & 1
     \end{bmatrix}
-    \hfill D = \frac{\partial h(x,u)}{\partial u} \bigg|_{\substack{x=x_e\\u=u_e}} =
+    &D = \frac{\partial h(x,u)}{\partial u} \bigg|_{\substack{x=x_e\\u=u_e}} =
     \begin{bmatrix} 
         0
     \end{bmatrix}
@@ -139,7 +139,7 @@ Di seguito il diagramma di Bode della funzione di trasferimento, ricavato tramit
 
 \section{Sintesi del regolatore}
 
-Per ottenere un errore a regime nullo con riferimento a gradino $w(t) = W1(t)$, $L(s)$ deve presentare un polo nell'origine.
+\textbf{(3.1)} Per ottenere un errore a regime nullo con riferimento a gradino $w(t) = W1(t)$, $L(s)$ deve presentare un polo nell'origine.
 Avendo un unico polo reale negativo, introduciamo un regolatore statico con un polo nell'origine: $ R_s(s) = \frac{1}{s} $ ricavandone quindi $ G_e(s) $:
 
 \begin{equation*}
@@ -149,15 +149,48 @@ Avendo un unico polo reale negativo, introduciamo un regolatore statico con un p
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[scale=0.5]{img/bode_GG_estesa.jpg}
-        %\caption{Rappresentazione grafica del sistema (elica)}
     \end{center}    
 \end{figure}
 
-Come si può notare, il sistema esteso rispetta le specifiche iniziali sul margine di fase ($ M_f \geq 45^\circ$)
+\textbf{(3.2)} Come si può notare, il sistema esteso rispetta le specifiche iniziali sul margine di fase ($ M_f \geq 45^\circ$)\\
 
+\textbf{(3.3)} La sovraelongazione percentuale massima accettabile è pari all'1\%. 
+Da questo ricaviamo un nuovo vincolo sul margine di fase, sapendo che $M_f = \xi \cdot 100 $
 
+\begin{equation*}
+    \begin{array}{c}
+        \xi^* = \sqrt{\frac{(ln(0.01))^2}{\pi^2+(ln(0.01))^2}} = 0.8261\\ \\
+        M_f=\xi * 100 \Longrightarrow M^*_{f,min}=0.8261 \cdot 100 = 82.61
+        \Longrightarrow arg(L(j\omega_c)) \geq -97.39^\circ
+    \end{array}
+\end{equation*}\\
+Il nuovo vincolo sul margine di fase introduce quindi un minimo non rispettato dal sistema esteso.\\
 
+\textbf{(3.4)} Il tempo di assestamento all'1\% deve essere mantenuto al di sotto dei 6 secondi.
+Posso quindi ottenere $ \omega_{c,min} $
 
+\begin{equation*}
+    T_{a,1} = 6 
+    \Longrightarrow 
+    \omega_c \ge \frac{460}{6 \cdot 82.61}
+    \Longrightarrow
+    \omega_c \ge 0.9281
+\end{equation*}
+
+\newpage
+
+\textbf{(3.5)} Considerando variazioni del parametro $e_i$ di $\pm 0.1$, si ottiene il seguente grafico:
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{img/bode_GG_ei.jpg}
+    \end{center}    
+\end{figure}
+
+\section{Disturbo di misura}
+
+Il disturbo di misura presenta componenti frequenziali $\geq 100 rad/s$ e deve essere abbattuto di almeno 30 volte.
+Di conseguenza a frequenze $\omega \geq 100 rad/s$, il grafico di $L(j\omega)$ non potrà avere ampiezze maggiori di $-30dB$
 
 
 
