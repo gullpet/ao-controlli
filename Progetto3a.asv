@@ -38,12 +38,9 @@ GG_Ei_max = 1/( (dist_mas_iner_max) * ( s + ( (bb/(dist_mas_iner_max)) + (( (Ud*
 figure(1);
 bodeplot(GG,{omega_range_min,omega_range_max});
 grid on, zoom on;
-hold on; 
-title("Funzione di trasformazione ")
-%con variazioni di e_i")
+hold on; title("G con variazioni di e_i")
 %bodeplot(GG_Ei_min,{omega_range_min,omega_range_max});
 %bodeplot(GG_Ei_max,{omega_range_min,omega_range_max});
-
 Legend=["G(s)"
     %e_i=0.5";"G(s) e_i=0.4"; "G(s) e_i=0.6"
     ];
