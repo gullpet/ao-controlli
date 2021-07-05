@@ -137,20 +137,14 @@ Di seguito il diagramma di Bode della funzione di trasferimento, ricavato tramit
 
 \newpage
 
-\section{Sintesi del regolatore}
+\section{Specifiche del regolatore}
 
 \textbf{(3.1)} Per ottenere un errore a regime nullo con riferimento a gradino $w(t) = W1(t)$, $L(s)$ deve presentare un polo nell'origine.
-Avendo un unico polo reale negativo, introduciamo un regolatore statico con un polo nell'origine: $ R_s(s) = \frac{1}{s} $ ricavandone quindi $ G_e(s) $:
+Avendo un unico polo reale negativo, possiamo introdurre a questo scopo un regolatore statico con un polo nell'origine: $ R_s(s) = \frac{1}{s} $ ricavandone quindi $ G_e(s) $:
 
 \begin{equation*}
     G_e(s) = R_s(s)G(s) = \frac{1}{s}\Big(\frac{1.2903}{s + 1.4139}\Big)
 \end{equation*}
-
-\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[scale=0.5]{img/bode_GG_estesa.jpg}
-    \end{center}    
-\end{figure}
 
 \textbf{(3.2)} Come si può notare, il sistema esteso rispetta le specifiche iniziali sul margine di fase ($ M_f \geq 45^\circ$)\\
 
@@ -177,7 +171,7 @@ Posso quindi ottenere $ \omega_{c,min} $
     \omega_c \ge 0.9281
 \end{equation*}
 
-\newpage
+%\newpage
 
 \textbf{(3.5)} Considerando variazioni del parametro $e_i$ di $\pm 0.1$, si ottiene il seguente grafico:
 
@@ -187,10 +181,46 @@ Posso quindi ottenere $ \omega_{c,min} $
     \end{center}    
 \end{figure}
 
+\newpage
+
 \section{Disturbo di misura}
 
-Il disturbo di misura presenta componenti frequenziali $\geq 100 rad/s$ e deve essere abbattuto di almeno 30 volte.
-Di conseguenza a frequenze $\omega \geq 100 rad/s$, il grafico di $L(j\omega)$ non potrà avere ampiezze maggiori di $-30dB$
+Il disturbo di misura presenta componenti frequenziali maggiori di 100 rad/s e deve essere abbattuto di almeno 30 volte.
+Di conseguenza a frequenze $\omega \geq 100~rad/s$, il grafico di $L(j\omega)$ non potrà avere ampiezze maggiori di $-30dB$.\\ \\
+Di seguito il diagramma di Bode del sistema esteso con i vincoli ottenuti dalle specifiche.
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.5]{img/bode_GG_estesa.jpg}
+    \end{center}    
+\end{figure}
+Come si può notare, sia le specifiche sull'ampiezza che quelle sul margine di fase non vengono rispettate.
+In particolare notiamo che, se anche $\omega_c$ si trovasse nel range $[\omega_{c,min}, \omega_{c,max}]$,
+le specifiche sul margine di fase non sarebbero rispettate.
+Possiamo ricondurci dunque ad uno scenario di tipo B.
+
+
+\section*{Sintesi del regolatore dinamico}
+
+Poiché ci interessa un anticipo di fase minore di $90^\circ$, 
+per soddisfare le specifiche è sufficiente introdurre una rete anticipatrice con uno zero:
+
+\begin{equation*}
+    R_d(s)= \mu_d \frac{1+\tau s} { 1 + \alpha \tau s} 
+\end{equation*}\\
+Procedendo in maniera empirica abbiamo scelto $\omega_c^* = 1.2281~rad/s$, calcolando poi argomento ed ampiezza di $G_e$ in $\omega_c^*$:
+
+\begin{equation*}
+        arg(G_e(J w^*_c))= -130.9762^\circ
+        \hspace{2em}|G_e(J w^*_c)|dB = -5.0201 dB
+\end{equation*}\\
+A questo punto possiamo calcolare $\phi^*$ ed $M^*$:
+\begin{equation*}
+    \varphi^*_c=(M^*_fmin +5)-180-(\space-arg(G_e(J w^*_c))\space)=38.5862
+    \hspace{2em}M^*=10^\frac{-|Ge(Jw_c^*)|dB}{20}=1.7824
+\end{equation*}
+
+
 
 
 
