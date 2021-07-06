@@ -275,15 +275,40 @@ Il modello è stato testato fornendo un ingresso a gradino di ampiezza $W=5$ al 
     \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[scale=0.2]{img/modello_lineare.jpg}
+        \caption{Rete linearizzata}
     \end{minipage}\hspace{2em}
     \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[scale=0.23]{img/modello_non_lineare.jpg}
+        \caption{Modello non lineare}
     \end{minipage}
 \end{figure}
 
 Come si può osservare, la rete non lineare risponde ai test riproducendo quasi perfettamente il comportamento della rete lineare.
 
+\newpage
 
+\section{Punti opzionali}
+
+\textbf{(6.2)} Testando il modello non lineare con condizioni iniziali nell'intorno del punto di equilibrio, il sistema risponde nel modo atteso.
+Impostando invece velocità iniziali molto elevate (in particolare con ${\omega_0 >7\cdot10^5~rad/s}$), il sistema inizia a rispondere in modo anomalo,
+producendo un'uscita di questo tipo:
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.35]{img/risposta_omega_iniz_elevato.jpg}
+    \end{center}
+\end{figure}
+In questo caso una risposta anomala era in parte prevedibile per via della velocità iniziale estremamente elevata.\\ \\
+\textbf{(6.3)}
+Nel testare il sistema con variazioni del valore di riferimento W, abbiamo riscontrato una situazione simile a quella del punto precedente.
+Nonostante il sistema non presenti anomalie particolari anche per riferimenti W molto alti, il vincolo sul tempo di assestamento all'1\% (6 secondi) cessa di essere soddisfatto per riferimenti $W > 1400$
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.35]{img/variazioni_W.png}
+        \caption{Risposta del sistema ad un riferimento $W = 1450$}
+    \end{center}
+\end{figure}
 
 \end{document}
