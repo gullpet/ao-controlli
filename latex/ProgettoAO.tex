@@ -19,7 +19,6 @@
     \and
     Pietro Girotti\\
 }
-\date{30 giugno 2021}
 
 \begin{document}
 \maketitle
@@ -173,11 +172,11 @@ Posso quindi ottenere $ \omega_{c,min} $
 
 %\newpage
 
-\textbf{(3.5)} Considerando variazioni del parametro $e_i$ di $\pm 0.1$, si ottiene il seguente grafico:
+\textbf{(3.5)} Considerando variazioni del parametro $e_i$ di $\pm 0.1$, si ottiene il seguente diagramma:
 
 \begin{figure}[h!]
     \begin{center}
-        \includegraphics[scale=0.5]{img/bode_GG_ei.jpg}
+        \includegraphics[scale=0.5]{img/bode_GG_estesa_ei.jpg}
     \end{center}    
 \end{figure}
 
@@ -208,7 +207,8 @@ per soddisfare le specifiche è sufficiente introdurre una rete anticipatrice co
 \begin{equation*}
     R_d(s)= \mu_d \frac{1+\tau s} { 1 + \alpha \tau s} 
 \end{equation*}\\
-Procedendo in maniera empirica abbiamo scelto $\omega_c^* = 1.2281~rad/s$, calcolando poi argomento ed ampiezza di $G_e$ in $\omega_c^*$:
+Procedendo in maniera empirica abbiamo scelto $\omega_c^* = 1.2281~rad/s$, 
+valutando poi argomento ed ampiezza di $G_e$ in $\omega_c^*$:
 
 \begin{equation*}
         arg(G_e(J w^*_c))= -130.9762^\circ
@@ -217,10 +217,72 @@ Procedendo in maniera empirica abbiamo scelto $\omega_c^* = 1.2281~rad/s$, calco
 A questo punto possiamo calcolare $\phi^*$ ed $M^*$:
 \begin{equation*}
     \varphi^*_c=(M^*_fmin +5)-180-(\space-arg(G_e(J w^*_c))\space)=38.5862
-    \hspace{2em}M^*=10^\frac{-|Ge(Jw_c^*)|dB}{20}=1.7824
+    \hspace{2em}
+    M^*=10^\frac{-|Ge(Jw_c^*)|dB}{20}=1.7824
 \end{equation*}
 
+Ottenendo infine i valori di $\tau$ ed $\alpha \tau$ per determinare l'espressione di $R_d(s)$
 
+\begin{equation*}
+    \tau = \frac{M^*-cos(\varphi^*)}{\omega^*_c\cdot sin(\varphi^*)}
+         = 1.2087
+    \hspace{2em}
+    \alpha \tau = \frac{cos(\varphi^*)-\frac{1}{M^*}}{\omega_c^*sin(\varphi^*)}
+                = 0.1064
+\end{equation*}\\
+\begin{equation*}
+    R_d(s) = 1.95\frac{1+1.2087s}{1+0.1064s}
+\end{equation*}
+
+L'espressione finale di L(s) sarà quindi:
+
+\begin{equation*}
+    L(s) = R_d(s) G_e(s) = 
+    1.95
+    \frac{1+1.2087s}{1+0.1064s}~
+    \frac {1} {s}
+    \bigg(\frac { 1.2903 }{s+1.4139}\bigg)
+    = \frac{28.58(s+0.8273)}{s(s+9.4)(s+1.4139)}
+\end{equation*}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.6]{img/bode_GG_RR_LL.jpg}
+    \end{center}
+\end{figure}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.58]{img/bode_LL_ei.jpg}
+    \end{center}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[scale=0.58]{img/step_LL_ei.jpg}
+    \end{center}
+\end{figure}
+
+\section{Test del regolatore}
+
+Mediante Simulink è possibile testare il regolatore sul modello non lineare (in allegato il file simulink).
+Il modello è stato testato fornendo un ingresso a gradino di ampiezza $W=5$ al tempo $t=1$
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.2]{img/modello_lineare.jpg}
+    \end{minipage}\hspace{2em}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.23]{img/modello_non_lineare.jpg}
+    \end{minipage}
+\end{figure}
+
+Come si può osservare, la rete non lineare risponde ai test riproducendo quasi perfettamente il comportamento della rete lineare.
 
 
 

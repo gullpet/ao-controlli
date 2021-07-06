@@ -39,7 +39,7 @@ figure(1);
 bodeplot(GG,{omega_range_min,omega_range_max});
 grid on, zoom on;
 hold on; 
-title("Funzione di trasformazione ")
+title("Funzione di trasferimento")
 %con variazioni di e_i")
 %bodeplot(GG_Ei_min,{omega_range_min,omega_range_max});
 %bodeplot(GG_Ei_max,{omega_range_min,omega_range_max});
@@ -295,7 +295,7 @@ hold off;
 
 %% Simulink
 
-%open("Progetto3aSimulink")
+open("progetto3aSimulink")
 
 [n_r,d_r]=tfdata(R);
 num_r=n_r{1};
