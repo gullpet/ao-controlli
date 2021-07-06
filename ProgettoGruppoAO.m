@@ -11,7 +11,7 @@ Ta_1 = 6;
 Bn = -30;
 omega_n = 100;
 
-%Ie variations +0.1 -0.1
+%e_i variations +0.1 -0.1
 Ei_min=Ei-0.1;
 Ei_max=Ei+0.1;
 
@@ -161,16 +161,6 @@ amplitude=mag2db(abs(GGe_omega_star));
 phi_star=(Mf+5)-180-ph;
 M_star=10.^(-amplitude/20);
 
-%{
-disp("maggiore di 1");
-display(M_star);
-disp("tra 0 e pi/2");
-display(phi_star);
-disp("sopra > sotto");
-display(cos(phi_star));
-display(1/M_star);
-%}
-
 tau=(M_star-cos(phi_star))/(omega_c_star*sin(phi_star));
 alpha_tau=(cos(phi_star)-1/M_star)/(omega_c_star*sin(phi_star));
 
@@ -295,7 +285,7 @@ hold off;
 
 %% Simulink
 
-open("progetto3aSimulink")
+open("SimulinkGruppoAO")
 
 [n_r,d_r]=tfdata(R);
 num_r=n_r{1};
